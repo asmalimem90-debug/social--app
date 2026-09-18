@@ -167,7 +167,7 @@ Screenshots of the application will be added here.
 
 ### Register
 
-![Register](screenshots/register.png)
+![Register](screenshots/register.PNG)
 
 ### Profile
 
