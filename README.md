@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SocialApp — Application de gestion des relations sociales
 
 Application web PHP/MySQL (Mini Projet 2025-2026).
@@ -348,4 +347,4 @@ social-app/
 ├── social_app.sql
 │
 └── README.md
->>>>>>> f3e21fcdefdfffeac93b51a181db742f92bc2e94
+
