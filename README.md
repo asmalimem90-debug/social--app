@@ -26,9 +26,6 @@ Screenshots of the application will be added here.
 
 ![Friends](screenshots/friends.png)
 
-### Notifications
-
-![Notifications](screenshots/notifications.png)
 
 ---
 
