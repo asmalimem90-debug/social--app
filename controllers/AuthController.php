@@ -10,6 +10,7 @@ class AuthController
         $this->userModel = new User();
     }
 
+    // ─── Show pages ──────────────────────────────────────────
 
     public function showLogin(): void
     {
@@ -23,6 +24,7 @@ class AuthController
         include __DIR__ . '/../views/auth/register.php';
     }
 
+    // ─── Process POST ────────────────────────────────────────
 
     public function processLogin(): void
     {

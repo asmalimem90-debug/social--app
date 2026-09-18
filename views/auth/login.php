@@ -9,7 +9,7 @@
                 </h4>
 
                 <form method="post" action="index.php">
-                    <input type="hidden" name="action" value="login">
+                    <input type="hidden" name="action"     value="login">
                     <input type="hidden" name="csrf_token" value="<?= h(csrfToken()) ?>">
 
                     <div class="mb-3">

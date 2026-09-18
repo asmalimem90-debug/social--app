@@ -10,7 +10,7 @@ class NotificationController
         $this->notifModel = new Notification();
     }
 
-   
+    // ─── Show notifications ──────────────────────────────────
 
     public function showNotifications(): void
     {
@@ -23,7 +23,7 @@ class NotificationController
         include __DIR__ . '/../views/notifications/index.php';
     }
 
- 
+    // ─── Mark one as read ────────────────────────────────────
 
     public function processMarkRead(): void
     {
@@ -37,7 +37,7 @@ class NotificationController
         redirect('index.php?page=notifications');
     }
 
- 
+    // ─── Mark all as read ────────────────────────────────────
 
     public function processMarkAllRead(): void
     {

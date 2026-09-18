@@ -1,5 +1,5 @@
 <?php
-
+// Compute unread notifications count for the badge
 $_unreadCount = 0;
 if (isLoggedIn()) {
     $__n = new Notification();
@@ -68,6 +68,7 @@ if (isLoggedIn()) {
             </ul>
 
             <ul class="navbar-nav align-items-center gap-2">
+                <!-- Notifications bell -->
                 <li class="nav-item">
                     <a class="nav-link position-relative" href="index.php?page=notifications">
                         <i class="bi bi-bell-fill fs-5"></i>
@@ -78,6 +79,7 @@ if (isLoggedIn()) {
                         <?php endif; ?>
                     </a>
                 </li>
+                <!-- User avatar + name -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#"
                        data-bs-toggle="dropdown" aria-expanded="false">

@@ -14,6 +14,7 @@ class FriendRequestController
         $this->notifModel   = new Notification();
     }
 
+    // ─── Show requests page ──────────────────────────────────
 
     public function showRequests(): void
     {
@@ -27,7 +28,7 @@ class FriendRequestController
         include __DIR__ . '/../views/friends/requests.php';
     }
 
-    
+    // ─── Send request ────────────────────────────────────────
 
     public function processSend(): void
     {
@@ -37,6 +38,7 @@ class FriendRequestController
         $currentUser = (int)$_SESSION['user_id'];
         $targetId    = (int)($_POST['target_id'] ?? 0);
 
+        // Whitelist the return page to prevent open-redirect
         $allowed    = ['search', 'profile', 'suggestions', 'friends'];
         $rawReturn  = $_POST['return'] ?? 'search';
         $returnPage = in_array($rawReturn, $allowed, true) ? $rawReturn : 'search';
@@ -46,11 +48,13 @@ class FriendRequestController
             redirect('index.php?page=' . $returnPage);
         }
 
+        // Guard: already friends
         if ($this->friendModel->areFriends($currentUser, $targetId)) {
             setFlash('warning', 'Vous êtes déjà amis avec cet utilisateur.');
             redirect('index.php?page=' . $returnPage);
         }
 
+        // Guard: request already exists in either direction
         if ($this->requestModel->getRelation($currentUser, $targetId)) {
             setFlash('warning', 'Une demande existe déjà avec cet utilisateur.');
             redirect('index.php?page=' . $returnPage);
@@ -59,6 +63,7 @@ class FriendRequestController
         $newId = $this->requestModel->send($currentUser, $targetId);
 
         if ($newId) {
+            // Notify the recipient
             $this->notifModel->create($targetId, 'demandeAmitié', $newId);
             setFlash('success', 'Demande d\'amitié envoyée.');
         } else {
@@ -68,6 +73,7 @@ class FriendRequestController
         redirect('index.php?page=' . $returnPage);
     }
 
+    // ─── Cancel sent request ─────────────────────────────────
 
     public function processCancel(): void
     {
@@ -86,7 +92,7 @@ class FriendRequestController
         redirect('index.php?page=friend-requests');
     }
 
-    
+    // ─── Accept request ──────────────────────────────────────
 
     public function processAccept(): void
     {
@@ -103,8 +109,9 @@ class FriendRequestController
         }
 
         if ($this->requestModel->accept($requestId, $currentUser)) {
+            // Create symmetric friendship (one row, ordered IDs)
             $this->friendModel->add($currentUser, (int)$row['demandeur_id']);
-         
+            // Notify the sender that their request was accepted
             $this->notifModel->create((int)$row['demandeur_id'], 'demandeAcceptée', $requestId);
             setFlash('success', 'Demande d\'amitié acceptée.');
         } else {
@@ -114,6 +121,7 @@ class FriendRequestController
         redirect('index.php?page=friend-requests');
     }
 
+    // ─── Reject request ──────────────────────────────────────
 
     public function processReject(): void
     {
@@ -130,7 +138,7 @@ class FriendRequestController
         }
 
         if ($this->requestModel->reject($requestId, $currentUser)) {
-            
+            // Notify the sender about the rejection
             $this->notifModel->create((int)$row['demandeur_id'], 'demandeRefusée', $requestId);
             setFlash('info', 'Demande refusée.');
         } else {

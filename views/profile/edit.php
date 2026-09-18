@@ -3,12 +3,14 @@
 <div class="row justify-content-center">
     <div class="col-md-7 col-lg-6">
 
+        <!-- Edit profile form -->
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-header bg-white fw-semibold">
                 <i class="bi bi-pencil-square me-2 text-primary"></i>Modifier le profil
             </div>
             <div class="card-body p-4">
 
+                <!-- Current avatar preview -->
                 <div class="text-center mb-3">
                     <img src="<?= avatarUrl($user['image'], $user['nom']) ?>"
                          alt="avatar" id="avatarPreview"
@@ -60,6 +62,7 @@
             </div>
         </div>
 
+        <!-- Danger zone -->
         <div class="card border-danger shadow-sm">
             <div class="card-header bg-danger text-white fw-semibold">
                 <i class="bi bi-exclamation-triangle me-2"></i>Zone dangereuse
@@ -75,6 +78,7 @@
     </div>
 </div>
 
+<!-- Delete account modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -104,7 +108,7 @@
 </div>
 
 <script>
-
+// Live avatar preview
 document.getElementById('image').addEventListener('change', function () {
     const file = this.files[0];
     if (file) {

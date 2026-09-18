@@ -3,6 +3,7 @@
 <div class="row justify-content-center">
     <div class="col-md-8 col-lg-6">
 
+        <!-- Profile card -->
         <div class="card shadow-sm border-0 mb-4">
             <div class="card-body text-center p-4">
                 <img src="<?= avatarUrl($user['image'], $user['nom']) ?>"
@@ -35,6 +36,7 @@
                     </a>
                 <?php else: ?>
                     <?php if ($isFriend): ?>
+                        <!-- Remove friend -->
                         <form method="post" action="index.php" class="d-inline">
                             <input type="hidden" name="action"     value="remove-friend">
                             <input type="hidden" name="csrf_token" value="<?= h(csrfToken()) ?>">
@@ -45,7 +47,8 @@
                             </button>
                         </form>
                     <?php elseif ($relation): ?>
-                        <?php if ($relation['statut'] === 'EN_ATTENTE' && (int)$relation['demandeur_id'] === (int)$_SESSION['user_id']): ?
+                        <?php if ($relation['statut'] === 'EN_ATTENTE' && (int)$relation['demandeur_id'] === (int)$_SESSION['user_id']): ?>
+                            <!-- Cancel sent request -->
                             <form method="post" action="index.php" class="d-inline">
                                 <input type="hidden" name="action"     value="cancel-request">
                                 <input type="hidden" name="csrf_token" value="<?= h(csrfToken()) ?>">

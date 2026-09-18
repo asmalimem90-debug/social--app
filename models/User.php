@@ -34,7 +34,10 @@ class User
         return $stmt->fetch();
     }
 
-    
+    /**
+     * Update user fields.
+     * $data is an associative array of column => value (only allowed columns).
+     */
     public function update(int $id, array $data): bool
     {
         $allowed = ['nom', 'email', 'motDePasse', 'image'];
@@ -57,7 +60,7 @@ class User
             'UPDATE utilisateurs SET ' . implode(', ', $sets) . ' WHERE id = ?'
         );
         $stmt->execute($values);
-        return $stmt->rowCount() >= 0; 
+        return $stmt->rowCount() >= 0; // 0 rows affected is still a success if data was same
     }
 
     public function delete(int $id): bool
@@ -67,7 +70,9 @@ class User
         return $stmt->rowCount() > 0;
     }
 
-   
+    /**
+     * Search users by name or email, excluding the requesting user.
+     */
     public function search(string $query, int $excludeId): array
     {
         $like = '%' . $query . '%';

@@ -10,6 +10,8 @@ class Notification
         $this->db = Database::getInstance();
     }
 
+    // ─── Write operations ────────────────────────────────────
+
     public function create(int $utilisateurId, string $type, ?int $referenceId = null): bool
     {
         $stmt = $this->db->prepare(
@@ -38,6 +40,12 @@ class Notification
         return true;
     }
 
+    // ─── Read operations ─────────────────────────────────────
+
+    /**
+     * Get all notifications for a user, newest first.
+     * Joins with demande_amis and utilisateurs to get actor name.
+     */
     public function getByUser(int $utilisateurId): array
     {
         $stmt = $this->db->prepare(

@@ -12,6 +12,7 @@ class FriendController
         $this->requestModel = new FriendRequest();
     }
 
+    // ─── Friends list ────────────────────────────────────────
 
     public function showFriends(): void
     {
@@ -32,6 +33,7 @@ class FriendController
         include __DIR__ . '/../views/friends/list.php';
     }
 
+    // ─── Remove friend ───────────────────────────────────────
 
     public function processRemove(): void
     {
@@ -50,6 +52,7 @@ class FriendController
         redirect('index.php?page=friends');
     }
 
+    // ─── Friend suggestions (BONUS) ──────────────────────────
 
     public function showSuggestions(): void
     {
@@ -58,6 +61,7 @@ class FriendController
         $userId      = (int)$_SESSION['user_id'];
         $suggestions = $this->friendModel->getSuggestions($userId);
 
+        // Attach current relation status for each suggestion
         foreach ($suggestions as &$s) {
             $s['relation'] = $this->requestModel->getRelation($userId, (int)$s['id']);
         }

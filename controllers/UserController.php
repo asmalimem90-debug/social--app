@@ -14,7 +14,7 @@ class UserController
         $this->requestModel = new FriendRequest();
     }
 
-    
+    // ─── Show profile (own or another user's) ────────────────
 
     public function showProfile(): void
     {
@@ -39,7 +39,7 @@ class UserController
         include __DIR__ . '/../views/profile/view.php';
     }
 
-    
+    // ─── Edit profile form ───────────────────────────────────
 
     public function showEditProfile(): void
     {
@@ -49,7 +49,7 @@ class UserController
         include __DIR__ . '/../views/profile/edit.php';
     }
 
-    
+    // ─── Process profile update ──────────────────────────────
 
     public function processUpdateProfile(): void
     {
@@ -71,7 +71,7 @@ class UserController
             redirect('index.php?page=edit-profile');
         }
 
-        
+        // Email uniqueness check (may be claimed by another account)
         $existing = $this->userModel->findByEmail($email);
         if ($existing && (int)$existing['id'] !== (int)$_SESSION['user_id']) {
             setFlash('danger', 'Cette adresse email est déjà utilisée.');
@@ -80,7 +80,7 @@ class UserController
 
         $data = ['nom' => $nom, 'email' => $email];
 
-        
+        // Optional password change
         if ($newPass !== '') {
             if (strlen($newPass) < 6) {
                 setFlash('danger', 'Le nouveau mot de passe doit contenir au moins 6 caractères.');
@@ -94,13 +94,13 @@ class UserController
             $data['motDePasse'] = password_hash($newPass, PASSWORD_DEFAULT);
         }
 
-    
+        // Optional avatar change
         $imageName = handleImageUpload('image');
         if ($imageName === false) {
             redirect('index.php?page=edit-profile');
         }
         if ($imageName !== null) {
-            
+            // Delete old avatar if it exists on disk
             $currentUser = $currentUser ?? $this->userModel->findById((int)$_SESSION['user_id']);
             if ($currentUser['image'] && file_exists(UPLOAD_PATH . $currentUser['image'])) {
                 unlink(UPLOAD_PATH . $currentUser['image']);
@@ -110,7 +110,7 @@ class UserController
 
         $this->userModel->update((int)$_SESSION['user_id'], $data);
 
-       
+        // Keep the session in sync
         $_SESSION['user_name']  = $nom;
         $_SESSION['user_email'] = $email;
         if (isset($data['image'])) {
@@ -121,7 +121,7 @@ class UserController
         redirect('index.php?page=edit-profile');
     }
 
-    
+    // ─── Delete account ──────────────────────────────────────
 
     public function processDeleteAccount(): void
     {
@@ -146,7 +146,7 @@ class UserController
         redirect('index.php?page=login');
     }
 
-    
+    // ─── Search ──────────────────────────────────────────────
 
     public function search(): void
     {

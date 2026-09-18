@@ -39,6 +39,7 @@
             };
         ?>
         <div class="list-group-item <?= $bgClass ?> d-flex align-items-center gap-3 py-3">
+            <!-- Actor avatar -->
             <?php if ($n['nom_acteur']): ?>
                 <a href="index.php?page=profile&id=<?= (int)($n['demandeur_id'] ?? 0) ?>">
                     <img src="<?= avatarUrl($n['image_acteur'] ?? null, $n['nom_acteur']) ?>"
@@ -48,6 +49,7 @@
                 <i class="bi <?= $typeIcon ?> fs-4 flex-shrink-0"></i>
             <?php endif; ?>
 
+            <!-- Text -->
             <div class="flex-grow-1">
                 <?php if ($n['nom_acteur']): ?>
                     <strong><?= h($n['nom_acteur']) ?></strong>
@@ -56,6 +58,7 @@
                 <div class="text-muted small"><?= timeAgo($n['dateCreation']) ?></div>
             </div>
 
+            <!-- Badge + mark-read -->
             <div class="d-flex flex-column align-items-end gap-1">
                 <?php if (!$n['is_read']): ?>
                     <span class="badge bg-primary rounded-pill">Nouveau</span>

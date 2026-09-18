@@ -5,6 +5,7 @@
     <span class="badge bg-primary rounded-pill"><?= count($friends) ?></span>
 </div>
 
+<!-- Search / filter -->
 <form method="get" action="index.php" class="mb-4">
     <input type="hidden" name="page" value="friends">
     <div class="input-group">

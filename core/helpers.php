@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 
+// ─── CSRF ────────────────────────────────────────────────────
 
 function csrfToken(): string
 {
@@ -19,11 +20,15 @@ function verifyCsrf(): void
     }
 }
 
+// ─── Output ──────────────────────────────────────────────────
+
+/** HTML-escape a value safely */
 function h(mixed $value): string
 {
     return htmlspecialchars((string)$value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
 
+// ─── Redirect / Flash ────────────────────────────────────────
 
 function redirect(string $url): void
 {
@@ -46,6 +51,7 @@ function getFlash(): ?array
     return null;
 }
 
+// ─── Auth ────────────────────────────────────────────────────
 
 function isLoggedIn(): bool
 {
@@ -60,6 +66,12 @@ function requireAuth(): void
     }
 }
 
+// ─── File upload ─────────────────────────────────────────────
+
+/**
+ * Handle a profile image upload.
+ * Returns: filename (string) on success, null if no file was sent, false on error.
+ */
 function handleImageUpload(string $fieldName = 'image'): string|null|false
 {
     if (empty($_FILES[$fieldName]['name'])) {
@@ -68,7 +80,7 @@ function handleImageUpload(string $fieldName = 'image'): string|null|false
 
     $file          = $_FILES[$fieldName];
     $allowedMimes  = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-    $maxSize       = 2 * 1024 * 1024; // 2 mb
+    $maxSize       = 2 * 1024 * 1024; // 2 MB
 
     if ($file['error'] !== UPLOAD_ERR_OK) {
         setFlash('danger', 'Erreur lors du téléchargement du fichier (code ' . $file['error'] . ').');
@@ -80,6 +92,7 @@ function handleImageUpload(string $fieldName = 'image'): string|null|false
         return false;
     }
 
+    // Verify actual MIME type (not just the extension declared by the client)
     $finfo    = finfo_open(FILEINFO_MIME_TYPE);
     $mimeType = finfo_file($finfo, $file['tmp_name']);
     finfo_close($finfo);
@@ -105,18 +118,19 @@ function handleImageUpload(string $fieldName = 'image'): string|null|false
     return $newName;
 }
 
+// ─── Avatar URL ──────────────────────────────────────────────
 
 function avatarUrl(?string $image, string $name = ''): string
 {
     if ($image && file_exists(UPLOAD_PATH . $image)) {
         return 'public/uploads/' . rawurlencode($image);
     }
-  
+    // Generate a placeholder using ui-avatars (no tracking, just initials)
     return 'https://ui-avatars.com/api/?name=' . rawurlencode($name ?: '?')
          . '&size=128&background=6366f1&color=fff&bold=true&rounded=true';
 }
 
-
+// ─── Time formatting ─────────────────────────────────────────
 
 function timeAgo(string $datetime): string
 {

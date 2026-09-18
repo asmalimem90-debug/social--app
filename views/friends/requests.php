@@ -24,6 +24,7 @@
 
 <div class="tab-content">
 
+    <!-- Received requests -->
     <div class="tab-pane fade show active" id="tab-received">
         <?php if (empty($received)): ?>
             <div class="text-center text-muted py-5">
@@ -73,6 +74,7 @@
         <?php endif; ?>
     </div>
 
+    <!-- Sent requests -->
     <div class="tab-pane fade" id="tab-sent">
         <?php if (empty($sent)): ?>
             <div class="text-center text-muted py-5">
@@ -121,6 +123,6 @@
         <?php endif; ?>
     </div>
 
-</div>
+</div><!-- /.tab-content -->
 
 <?php include __DIR__ . '/../../views/partials/footer.php'; ?>

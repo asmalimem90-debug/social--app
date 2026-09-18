@@ -1,19 +1,23 @@
+/* ============================================================
+   SocialApp — Supplemental styles (Bootstrap 5 base)
+   ============================================================ */
 
+/* ── Avatar sizes ────────────────────────────────────────── */
 .avatar-xs  { width: 32px;  height: 32px;  object-fit: cover; }
 .avatar-sm  { width: 48px;  height: 48px;  object-fit: cover; }
 .avatar-md  { width: 64px;  height: 64px;  object-fit: cover; }
 .avatar-lg  { width: 100px; height: 100px; object-fit: cover; }
 
-
+/* ── Layout helpers ──────────────────────────────────────── */
 .min-width-0 { min-width: 0; }
 
-
+/* ── Navbar active link ──────────────────────────────────── */
 .navbar .nav-link:hover {
     background-color: rgba(255, 255, 255, .12);
     border-radius: .4rem;
 }
 
-
+/* ── Cards ───────────────────────────────────────────────── */
 .card {
     border-radius: .75rem;
 }
@@ -21,12 +25,13 @@
     border-radius: .75rem .75rem 0 0 !important;
 }
 
+/* ── Notification unread row ─────────────────────────────── */
 .list-group-item-light {
     background-color: #eef3ff;
     border-left: 3px solid #6366f1;
 }
 
-
+/* ── Auth page background ────────────────────────────────── */
 body:not(:has(nav)) {
     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
     min-height: 100vh;
@@ -35,7 +40,8 @@ body:not(:has(nav)) .container {
     padding-top: 10vh;
 }
 
+/* ── Status badge colours ────────────────────────────────── */
 .bg-success-subtle { background-color: #d1fae5; }
 
-
+/* ── Scroll smooth ───────────────────────────────────────── */
 html { scroll-behavior: smooth; }

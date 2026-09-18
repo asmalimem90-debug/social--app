@@ -3,24 +3,29 @@ declare(strict_types=1);
 
 session_start();
 
+// ── Bootstrap ────────────────────────────────────────────────
 require_once __DIR__ . '/config/config.php';
 require_once __DIR__ . '/core/Database.php';
 require_once __DIR__ . '/core/helpers.php';
 
+// ── Models ───────────────────────────────────────────────────
 require_once __DIR__ . '/models/User.php';
 require_once __DIR__ . '/models/FriendRequest.php';
 require_once __DIR__ . '/models/Friend.php';
 require_once __DIR__ . '/models/Notification.php';
 
+// ── Controllers ──────────────────────────────────────────────
 require_once __DIR__ . '/controllers/AuthController.php';
 require_once __DIR__ . '/controllers/UserController.php';
 require_once __DIR__ . '/controllers/FriendRequestController.php';
 require_once __DIR__ . '/controllers/FriendController.php';
 require_once __DIR__ . '/controllers/NotificationController.php';
 
+// ── Routing ──────────────────────────────────────────────────
 $page   = trim($_GET['page']         ?? '');
 $action = trim($_POST['action']      ?? '');
 
+// ── Handle POST actions ──────────────────────────────────────
 if ($action !== '') {
     $publicActions = ['login', 'register'];
 
@@ -71,6 +76,7 @@ if ($action !== '') {
     exit;
 }
 
+// ── Handle GET pages ─────────────────────────────────────────
 if ($page === '') {
     redirect('index.php?page=' . (isLoggedIn() ? 'profile' : 'login'));
 }
