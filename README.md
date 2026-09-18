@@ -171,11 +171,11 @@ Screenshots of the application will be added here.
 
 ### Profile
 
-![Profile](screenshots/profile.png)
+![Profile](screenshots/profile.PNG)
 
 ### Friends
 
-![Friends](screenshots/friends.png)
+![Friends](screenshots/friends.PNG)
 
 
 ---
