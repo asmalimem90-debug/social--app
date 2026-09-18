@@ -12,7 +12,7 @@ Screenshots of the application will be added here.
 
 ### Login
 
-![Login](screenshots/login.png)
+![Login](C:\xampp\htdocs\social-app\screenshots\login.png)
 
 ### Register
 
