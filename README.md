@@ -163,7 +163,7 @@ Screenshots of the application will be added here.
 
 ### Login
 
-![Login](screenshots/login.png)
+![Login](screenshots/login.PNG)
 
 ### Register
 
